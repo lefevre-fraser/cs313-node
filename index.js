@@ -10,6 +10,7 @@ express()
   .get('/math', function (req, res) { 
   		res.render('text/html');
   		console.log(req.query.op1);
+  		console.log(req.query.op2)
   		res.end();
   	})
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
