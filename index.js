@@ -8,9 +8,26 @@ express()
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
   .get('/math', function (req, res) { 
-  		res.render('text/html');
-  		console.log(req.query.op1);
-  		console.log(req.query.op2)
+  		var result;
+  		var op1 = req.query.op1;
+  		var op2 = req.query.op2;
+  		switch (req.query.operand) {
+  			case '/':
+  				result = op1 / op2;
+  				break;
+  			case '*':
+  				result = op1 * op2;
+  				break;
+  			case '-':
+  				result = op1 - op2;
+  				break;
+  			case '+':
+  				result = op1 + op2;
+  				break;
+  		}
+  		console.log(result);
+
+  		res.render('../public/Teach09/results', { result : result });
   		res.end();
   	})
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
