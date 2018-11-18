@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Postal Rates</title>
+</head>
+<body>
+	<form action="/PostalRates/Response">
+		<label>Item Weight (oz):</label><br>
+		<input type="decimal" name="weight" required><br>
+		<label>Package Type:</label><br>
+		<select name="type">
+			<option value="1">Letters (Stamped)</option>
+			<option value="2">Letters (Metered)</option>
+			<option value="3">Large Envelopes (Flats)</option>
+			<option value="4">First-Class Pakcage Service-Retail</option>
+		</select><br><br>
+		<button type="submit">Submit</button>
+	</form>
+</body>
+</html>
