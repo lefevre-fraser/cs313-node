@@ -1,14 +1,9 @@
 const express = require('express')
 const path = require('path')
-const url =  require('url');
-const db_url = url.parse(process.env.DATABASE_URL);
 const { Pool } = require('pg');
 var pool = new Pool({
-  user: db_url.username;
-  host: db_url.hostname;
-  database: db_url.pathname;
-  password: db_url.password;
-  port: db_url.port;
+  connectString: process.env.DATABASE_URL
+  ssl: true;
 });
 const PORT = process.env.PORT || 5000
 
