@@ -43,34 +43,15 @@ express()
     res.render('../public/PostalRates/response.ejs', variables)
     res.end()
   })
-  .get('/Teach10/PersonData', function (req, res) {
-    var id = req.query.id;
-    var results = PersonData(id);
-    res.render('../public/Teach10/Teach10.ejs', {results : results})
+  .get('/Teach10/PersonData', async (req, res) {
+    var id = req.query.id
+    const client = await pool.connect()
+    const result = await client.query('select * from person where person_id = $1', [id])
+    const results = { 'results': (result) ? result.rows : nul }
+    res.render('../public/Teach10/Teach10.ejs', { results : results })
     res.end()
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
-
-function PersonData (id) {
-  var ConnectString = process.env.DATABASE_URL;
-  var results = "";
-
-  pool.connect(function(err, client, done) {
-    if (err) {
-      return console.error('error fetching client from pool', err);
-    }
-    console.log('connected to database');
-    client.query('select * from person', function(err, result) {
-      done();
-      if (err) {
-        return console.error('error running query', err);
-      }
-      results = result;
-    });
-  });
-
-  return results;
-}
 
 function calculateRate (weight, type) {
   var price = 0
