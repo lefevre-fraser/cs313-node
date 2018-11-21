@@ -40,6 +40,8 @@ express()
   })
   .get('/Teach10/PersonData', function (req, res) {
     var id = req.query.id;
+    res.render('../public/Teach10/Teach10.ejs', {id : id})
+    res.end()
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
