@@ -45,11 +45,18 @@ express()
   })
   .get('/Teach10/PersonData', async (req, res) => {
     var id = req.query.id
-    const client = await pool.connect()
-    const result = await client.query('select * from person where person_id = $1', [id])
-    const results = { 'results': (result) ? result.rows : nul }
-    res.render('../public/Teach10/Teach10.ejs', { results : results })
-    res.end()
+    try {
+      const client = await pool.connect()
+      const result = await client.query('select * from person where person_id = $1', [id])
+      const results = { 'results': (result) ? result.rows : nul }
+      res.render('../public/Teach10/Teach10.ejs', { results : results })
+      res.end()
+      client.release()
+    } catch (err) {
+      console.error(err)
+      res.send("ERROR: " + err)
+    }
+
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
