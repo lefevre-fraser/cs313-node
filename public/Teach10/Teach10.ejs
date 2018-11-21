@@ -1,1 +1,24 @@
+<% 
+	var pg = require('pg');
+	var ConnectString = process.env.DATABASE_URL;
+	var results = "";
+
+	pg.connect(ConnectString, function(err, client, done) {
+		if (err) {
+			return console.error('error fetching client from pool', err);
+		}
+		console.log('connected to database');
+		client.query('select * from person', function(err, result) {
+			done();
+			if (err) {
+				return console.error('error running query', err);
+			}
+			results = result;
+		});
+	});
+
+%>
+
+<%= results %>
+
 <%= process.env.DATABASE_URL %>
