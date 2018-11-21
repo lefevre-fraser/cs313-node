@@ -1,5 +1,6 @@
 const express = require('express')
 const path = require('path')
+var pg = require('pg');
 const PORT = process.env.PORT || 5000
 
 express()
@@ -47,7 +48,6 @@ express()
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 function PersonData (id) {
-  var pg = require('pg');
   var ConnectString = process.env.DATABASE_URL;
   var results = "";
 
