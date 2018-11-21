@@ -40,11 +40,33 @@ express()
   })
   .get('/Teach10/PersonData', function (req, res) {
     var id = req.query.id;
-    res.render('../public/Teach10/Teach10.ejs', {id : id})
+    var results = PersonData(id);
+    res.render('../public/Teach10/Teach10.ejs', {id : id, results : results})
     res.end()
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
+function PersonData (id) {
+  var pg = require('pg');
+  var ConnectString = process.env.DATABASE_URL;
+  var results = "";
+
+  pg.connect(ConnectString, function(err, client, done) {
+    if (err) {
+      return console.error('error fetching client from pool', err);
+    }
+    console.log('connected to database');
+    client.query('select * from person', function(err, result) {
+      done();
+      if (err) {
+        return console.error('error running query', err);
+      }
+      results = result;
+    });
+  });
+
+  return results;
+}
 
 function calculateRate (weight, type) {
   var price = 0
