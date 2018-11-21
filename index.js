@@ -48,7 +48,7 @@ express()
     try {
       const client = await pool.connect()
       const result = await client.query('select * from person where person_id = $1', [id])
-      const results = { 'results': (result) ? result.rows : nul }
+      const results = { 'results': (result) ? result.rows : null }
       res.render('../public/Teach10/Teach10.ejs', { results : results })
       res.end()
       client.release()
