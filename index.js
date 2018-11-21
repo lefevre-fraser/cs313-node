@@ -43,7 +43,7 @@ express()
     res.render('../public/PostalRates/response.ejs', variables)
     res.end()
   })
-  .get('/Teach10/PersonData', async (req, res) {
+  .get('/Teach10/PersonData', async (req, res) => {
     var id = req.query.id
     const client = await pool.connect()
     const result = await client.query('select * from person where person_id = $1', [id])
