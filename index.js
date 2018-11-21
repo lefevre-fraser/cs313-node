@@ -38,6 +38,9 @@ express()
     res.render('../public/PostalRates/response.ejs', variables)
     res.end()
   })
+  .get('/Teach10/PersonData', function (req, res) {
+    var id = req.query.id;
+  })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
