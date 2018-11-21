@@ -1,7 +1,15 @@
 const express = require('express')
 const path = require('path')
-var pg = require('pg');
-var pool = pg.Pool();
+const url =  require('url');
+const db_url = url.parse(process.env.DATABASE_URL);
+const { Pool } = require('pg');
+var pool = new Pool({
+  user: db_url.username;
+  host: db_url.hostname;
+  database: db_url.pathname;
+  password: db_url.password;
+  port: db_url.port;
+});
 const PORT = process.env.PORT || 5000
 
 express()
@@ -42,8 +50,8 @@ express()
   })
   .get('/Teach10/PersonData', function (req, res) {
     var id = req.query.id;
-    // var results = PersonData(id);
-    res.render('../public/Teach10/Teach10.ejs', {id : id})
+    var results = PersonData(id);
+    res.render('../public/Teach10/Teach10.ejs', {results : results})
     res.end()
   })
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
@@ -52,7 +60,7 @@ function PersonData (id) {
   var ConnectString = process.env.DATABASE_URL;
   var results = "";
 
-  pool.connect(ConnectString, function(err, client, done) {
+  pool.connect(function(err, client, done) {
     if (err) {
       return console.error('error fetching client from pool', err);
     }
