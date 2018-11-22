@@ -47,7 +47,35 @@ express()
     var id = req.query.id
     try {
       const client = await pool.connect()
-      const result = await client.query('select * from person where person_id = $1', [id])
+      var query = "select" 
+      query +=    " case when c.person_id = $1 then c.fname || ' ' || c.lname"
+      query +=    " when m.person_id = $1 then m.fname || ' ' || m.lname"
+      query +=    " when f.person_id = $1 then f.fname || ' ' || f.lname"
+      query +=    " end as person_name,"
+      query +=    " case when f.person_id = $1 then 'PERSON'"
+      query +=    " else f.fname || ' ' || f.lname"
+      query +=    " end as father_name,"
+      query +=    " case when m.person_id = $1 then 'PERSON'"
+      query +=    " else m.fname || ' ' || m.lname"
+      query +=    " end as mother_name,"
+      query +=    " case when c.person_id = $1 then 'PERSON'"
+      query +=    " else c.fname || ' ' || c.lname"
+      query +=    " end as child_name"
+      query +=    " from "
+      query +=    " parent_child pc"
+      query +=    " inner join "
+      query +=    " person c"
+      query +=    " on c.person_id = pc.child_id"
+      query +=    " inner join"
+      query +=    " person f"
+      query +=    " on f.person_id = pc.father_id"
+      query +=    " inner join"
+      query +=    " person m"
+      query +=    " on m.person_id = pc.mother_id"
+      query +=    " where pc.father_id = $1"
+      query +=    " or pc.mother_id = $1"
+      query +=    " or pc.child_id = $1"
+      const result = await client.query(query, [id])
       const results = { 'results': (result) ? result.rows : null }
       res.render('../public/Teach10/Teach10.ejs', results)
       client.release()
