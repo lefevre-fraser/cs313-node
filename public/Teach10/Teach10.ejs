@@ -1,1 +1,11 @@
-<%= results %>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Person</title>
+</head>
+<body>
+	<% results.foreach(function (row) { %>
+	<%= row.fname %> 
+	<% }) %>
+</body>
+</html>
