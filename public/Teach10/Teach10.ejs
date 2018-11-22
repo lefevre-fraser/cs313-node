@@ -4,11 +4,19 @@
 	<title>Person</title>
 </head>
 <body>
+	<table>
+	<tr><th>Person</th><th>Father</th><th>Mother</th><th>Child</th></tr>
 	<% results.forEach(function (row) { %>
+	<tr><td>
 	<%= row.person_name %>
+	</td><td>
 	<%= row.father_name %> 
+	</td><td>
 	<%= row.mother_name %> 
+	</td><td>
 	<%= row.child_name %> 
+	</td></tr>
 	<% }); %>
+	</table>
 </body>
 </html>
