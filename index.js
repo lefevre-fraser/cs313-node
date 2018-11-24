@@ -13,16 +13,22 @@ express()
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
   .get('/AssetTracker', async (req, res) => {
-    res.locals.username = req.session.username
+    if (typeof req.session.username != 'undefined') {
+      res.locals.username = req.session.username
+    }
     res.render('pages/AssetTracker/assets')
   })
   .get('/AssetTracker/UserAccount', async (req, res) => {
-    res.locals.username = req.session.username
-    res.render('pages/AssetTracker/user.html')
+    if (typeof req.session.username != 'undefined') {
+      res.locals.username = req.session.username
+    }
+    res.render('pages/AssetTracker/user')
   })
   .get('/AssetTracker/LoginServices', async (req, res) => {
-    res.locals.username = req.session.username
-    res.render('pages/AssetTracker/login.html')
+    if (typeof req.session.username != 'undefined') {
+      res.locals.username = req.session.username
+    }
+    res.render('pages/AssetTracker/login')
   })
   .get('/math', function (req, res) { 
   		var result;
