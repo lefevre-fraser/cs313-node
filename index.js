@@ -18,8 +18,10 @@ express()
   .get('/AssetTracker', async (req, res) => {
     if (typeof req.session.username !== 'undefined') {
       res.locals.username = req.session.username
+      res.render('pages/AssetTracker/assets')
+    } else {
+      res.writeHead(200, { Location: '/AssetTracker/LoginServices'})
     }
-    res.render('pages/AssetTracker/assets')
   })
   .get('/AssetTracker/UserAccount', async (req, res) => {
     if (typeof req.session.username != 'undefined') {
