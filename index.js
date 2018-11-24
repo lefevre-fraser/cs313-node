@@ -21,6 +21,7 @@ express()
       res.render('pages/AssetTracker/assets')
     } else {
       res.writeHead(200, { Location: '/AssetTracker/LoginServices'})
+      res.end()
     }
   })
   .get('/AssetTracker/UserAccount', async (req, res) => {
