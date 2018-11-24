@@ -13,13 +13,16 @@ express()
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
   .get('/AssetTracker', async (req, res) => {
-    res.sendFile(path.join(__dirname, '/views/pages/AssetTracker/assets.html'))
+    res.locals.username = req.session.username
+    res.render('pages/AssetTracker/assets')
   })
   .get('/AssetTracker/UserAccount', async (req, res) => {
-    res.sendFile(path.join(__dirname, '/views/pages/AssetTracker/user.html'))
+    res.locals.username = req.session.username
+    res.render('pages/AssetTracker/user.html')
   })
   .get('/AssetTracker/LoginServices', async (req, res) => {
-    res.sendFile(path.join(__dirname, '/views/pages/AssetTracker/login.html'))
+    res.locals.username = req.session.username
+    res.render('pages/AssetTracker/login.html')
   })
   .get('/math', function (req, res) { 
   		var result;
