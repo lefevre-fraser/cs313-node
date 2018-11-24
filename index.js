@@ -12,6 +12,15 @@ express()
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
+  .get('/AssetTracker', async (req, res) => {
+    res.render('pages/AssetTracker/assets.html')
+  })
+  .get('/AssetTracker/UserAccount', async (req, res) => {
+    res.render('pages/AssetTracker/user.html')
+  })
+  .get('/AssetTracker/LoginServices', async (req, res) => {
+    res.render('pages/AssetTracker/login.html')
+  })
   .get('/math', function (req, res) { 
   		var result;
   		var op1 = req.query.op1;
