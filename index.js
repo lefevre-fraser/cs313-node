@@ -7,8 +7,11 @@ const pool = new Pool({
 })
 const PORT = process.env.PORT || 5000
 
+var sess = require('express-session')
+
 express()
   .use(express.static(path.join(__dirname, 'public')))
+  .use(sess({ secret: 'keyboard cat', cookie: {} }))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
