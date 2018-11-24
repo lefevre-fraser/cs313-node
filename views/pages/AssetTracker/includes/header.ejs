@@ -1,4 +1,8 @@
-<h1>Name:  <%= username %> </h1>
+<h1>Name:  
+	<% if (typeof username !== 'undefined') { %> 
+		<%= username %>
+	<% } %>
+</h1>
 
 <div class='d-flex flex-row'>
 <a href='AssetTracker.php' id='tracker' class='btn btn-primary'>Asset Tracker</a>
