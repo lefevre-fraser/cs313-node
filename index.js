@@ -13,7 +13,7 @@ express()
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
   .get('/AssetTracker', async (req, res) => {
-    if (req.session.username) {
+    if (typeof req.session.username !== 'undefined') {
       res.locals.username = req.session.username
     }
     res.render('pages/AssetTracker/assets')
