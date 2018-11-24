@@ -16,10 +16,10 @@ express()
     res.sendFile(path.join(__dirname, '/views/pages/AssetTracker/assets.html'))
   })
   .get('/AssetTracker/UserAccount', async (req, res) => {
-    res.sendFile('pages/AssetTracker/user.html')
+    res.sendFile(path.join(__dirname, '/views/pages/AssetTracker/user.html'))
   })
   .get('/AssetTracker/LoginServices', async (req, res) => {
-    res.sendFile('pages/AssetTracker/login.html')
+    res.sendFile(path.join(__dirname, '/views/pages/AssetTracker/login.html'))
   })
   .get('/math', function (req, res) { 
   		var result;
