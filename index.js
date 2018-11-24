@@ -20,7 +20,7 @@ express()
       res.locals.username = req.session.username
       res.render('pages/AssetTracker/assets')
     } else {
-      res.writeHead(200, { Location: '/AssetTracker/LoginServices'})
+      res.writeHead(301, { Location: '/AssetTracker/LoginServices'})
       res.end()
     }
   })
