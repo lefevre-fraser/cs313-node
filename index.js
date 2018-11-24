@@ -20,15 +20,20 @@ express()
       res.locals.username = req.session.username
       res.render('pages/AssetTracker/assets')
     } else {
+      res.session.returnPage = '/AssetTracker'
       res.writeHead(301, { Location: '/AssetTracker/LoginServices'})
       res.end()
     }
   })
   .get('/AssetTracker/UserAccount', async (req, res) => {
-    if (typeof req.session.username != 'undefined') {
+    if (typeof req.session.username !== 'undefined') {
       res.locals.username = req.session.username
+      res.render('pages/AssetTracker/user')
+    } else {
+      res.session.returnPage = '/AssetTracker/UserAccount'
+      res.writeHead(301, { Location: '/AssetTracker/LoginServices'})
+      res.end()
     }
-    res.render('pages/AssetTracker/user')
   })
   .get('/AssetTracker/LoginServices', async (req, res) => {
     if (typeof req.session.username != 'undefined') {
