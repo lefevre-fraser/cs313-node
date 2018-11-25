@@ -47,6 +47,11 @@ express()
       res.end()
     }
   })
+  .get('/AssetTracker/logout', async (req, res) => {
+    req.session.destroy();
+    res.writeHead(301, { Location: '/AssetTracker/LoginServices'})
+    res.end()
+  })
   .post('/AssetTracker/login', async (req, res) => {
     try {
       const client = await pool.connect()
