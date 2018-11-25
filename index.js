@@ -29,9 +29,32 @@ express()
   })
   .get('/AssetTracker/UserAccount', async (req, res) => {
     if (typeof req.session.user_name !== 'undefined') {
-      res.locals.user_name = req.session.user_name
-      res.locals.full_name = req.session.full_name
-      res.render('pages/AssetTracker/user')
+      try {
+        res.locals.user_name = req.session.user_name
+        res.locals.full_name = req.session.full_name
+
+        const client = await pool.connect()
+        var query = "select"
+        query    += " u.fname, u.mname, u.lname,"
+        query    += " ('(' || ac.area_code || ') ' || u.phone_number) as phone_number,"
+        query    += " u.creation_date"
+        query    += " from users u"
+        query    += " inner join area_codes ac"
+        query    += " on u.area_code_id = ac.area_code_id"
+        query    += " where u.user_name = $1::varchar"
+        const result = await client.query(query, [req.session.user_name])
+        const row = result.rows[0]
+
+        res.locals.fname = row.fname
+        res.locals.lname = row.lname
+        res.locals.mname = row.mname
+        res.locals.phone_number = row.phone_number
+        res.locals.creation_date = row.creation_date
+
+        res.render('pages/AssetTracker/user')
+      } catch (err) {
+        console.log(err);
+      }
     } else {
       req.session.returnPage = '/AssetTracker/UserAccount'
       return res.redirect('/AssetTracker/LoginServices')
