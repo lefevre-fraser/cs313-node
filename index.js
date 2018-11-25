@@ -47,7 +47,7 @@ express()
       res.end()
     }
   })
-  .get('/AssetTracker/logout', async (req, res) => {
+  .get('/AssetTracker/logout', function (req, res) {
     req.session.destroy(function(err) {
       if (err) {
         console.log(err);
