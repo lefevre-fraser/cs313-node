@@ -67,6 +67,7 @@ express()
         console.log(err);
       }
     })
+    sess({ secret: 'keyboard cat', cookie: {} })
     req.session.returnPage = returnPage
     res.render('pages/AssetTracker/login')
   })
