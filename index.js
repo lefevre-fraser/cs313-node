@@ -38,15 +38,12 @@ express()
     }
   })
   .get('/AssetTracker/LoginServices', async (req, res) => {
-    res.render('pages/AssetTracker/login')
-  })
-  .get('/AssetTracker/logout', function (req, res) {
     req.session.destroy(function(err) {
       if (err) {
         console.log(err);
       }
     })
-    return res.redirect('/AssetTracker/LoginServices')
+    res.render('pages/AssetTracker/login')
   })
   .post('/AssetTracker/login', async (req, res) => {
     try {
