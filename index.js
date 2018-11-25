@@ -1,4 +1,5 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 const path = require('path')
 const { Pool } = require('pg')
 const pool = new Pool({
@@ -12,6 +13,7 @@ var sess = require('express-session')
 express()
   .use(express.static(path.join(__dirname, 'public')))
   .use(sess({ secret: 'keyboard cat', cookie: {} }))
+  .use(bodyParser.urlencoded({ extended: false }))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('pages/index'))
@@ -45,8 +47,8 @@ express()
     try {
       const client = await pool.connect()
       var query = "select user_id, user_name from users where user_name = $1::varchar"
-      console.log(req.query.user_name)
-      const result = await client.query(query, [req.query.user_name])
+      console.log(req.body.user_name)
+      const result = await client.query(query, [req.body.user_name])
       console.log(JSON.stringify(result))
       req.session.user_name = result.rows[0].user_name;
 
