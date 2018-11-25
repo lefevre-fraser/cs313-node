@@ -48,13 +48,18 @@ express()
     }
   })
   .get('/AssetTracker/logout', function (req, res) {
-    req.session.destroy(function(err) {
-      if (err) {
-        console.log(err);
-      }
-    })
-    res.writeHead(301, { Location: '/AssetTracker/LoginServices'})
-    res.end()
+    if (typeof req.session.user_name !== 'undefined') {
+      req.session.destroy(function(err) {
+        if (err) {
+          console.log(err);
+        }
+      })
+      res.writeHead(301, { Location: '/AssetTracker/logout'})
+      res.end()
+    } else {
+      res.writeHead(301, { Location: '/AssetTracker/LoginServices'})
+      res.end()
+    }
   })
   .post('/AssetTracker/login', async (req, res) => {
     try {
