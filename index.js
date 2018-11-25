@@ -48,7 +48,7 @@ express()
     }
   })
   .get('/AssetTracker/logout', async (req, res) => {
-    req.session.destroy();
+    req.session.destroy()
     res.writeHead(301, { Location: '/AssetTracker/LoginServices'})
     res.end()
   })
