@@ -38,7 +38,12 @@ express()
     }
   })
   .get('/AssetTracker/LoginServices', async (req, res) => {
-    res.render('pages/AssetTracker/login')
+    if (typeof req.session.user_name === 'undefined') {
+      res.render('pages/AssetTracker/login')
+    } else {
+      res.writeHead(301, { Location: '/AssetTracker'})
+      res.end()
+    }
   })
   .post('/AssetTracker/login', async (req, res) => {
     try {
