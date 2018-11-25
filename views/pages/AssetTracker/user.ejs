@@ -6,20 +6,22 @@
 	<% include includes/bootstrapHeader.ejs %>
 </head>
 <body>
-	<% include includes/header.ejs %>
+	<div id="main_div">
+		<% include includes/header.ejs %>
 
-	<label>First Name:</label>
-	<p><%= fname %></p> <br>
-	<label>Middle Name:</label>
-	<p><%= mname %></p> <br>
-	<label>Last Name:</label>
-	<p><%= lname %></p> <br>
-	<label>Phone Number:</label>
-	<p><%= phone_number %></p> <br>
-	<label>Account Creation Date:</label>
-	<p><%= creation_date %></p>
+		<label>First Name:</label>
+		<p><%= fname %></p> <br>
+		<label>Middle Name:</label>
+		<p><%= mname %></p> <br>
+		<label>Last Name:</label>
+		<p><%= lname %></p> <br>
+		<label>Phone Number:</label>
+		<p><%= phone_number %></p> <br>
+		<label>Account Creation Date:</label>
+		<p><%= creation_date %></p>
 
-	<% include includes/footer.ejs %>
-	<% include includes/bootstrapFooter.ejs %>
+		<% include includes/footer.ejs %>
+		<% include includes/bootstrapFooter.ejs %>
+	</div>
 </body>
 </html>
