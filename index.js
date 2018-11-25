@@ -24,8 +24,7 @@ express()
       res.render('pages/AssetTracker/assets')
     } else {
       req.session.returnPage = '/AssetTracker'
-      res.writeHead(300, { Location: '/AssetTracker/LoginServices'})
-      res.end()
+      return res.redirect('/AssetTracker/LoginServices')
     }
   })
   .get('/AssetTracker/UserAccount', async (req, res) => {
@@ -35,31 +34,23 @@ express()
       res.render('pages/AssetTracker/user')
     } else {
       req.session.returnPage = '/AssetTracker/UserAccount'
-      res.writeHead(300, { Location: '/AssetTracker/LoginServices'})
-      res.end()
+      return res.redirect('/AssetTracker/LoginServices')
     }
   })
   .get('/AssetTracker/LoginServices', async (req, res) => {
     if (typeof req.session.user_name === 'undefined') {
       res.render('pages/AssetTracker/login')
     } else {
-      res.writeHead(300, { Location: '/AssetTracker'})
-      res.end()
+      return res.redirect('/AssetTracker')
     }
   })
   .get('/AssetTracker/logout', function (req, res) {
-    if (typeof req.session.user_name !== 'undefined') {
-      req.session.destroy(function(err) {
-        if (err) {
-          console.log(err);
-        }
-      })
-      res.writeHead(300, { Location: '/AssetTracker/logout'})
-      res.end()
-    } else {
-      res.writeHead(300, { Location: '/AssetTracker/LoginServices'})
-      res.end()
-    }
+    req.session.destroy(function(err) {
+      if (err) {
+        console.log(err);
+      }
+    })
+    return res.redirect('/AssetTracker/LoginServices')
   })
   .post('/AssetTracker/login', async (req, res) => {
     try {
@@ -70,13 +61,13 @@ express()
       req.session.full_name = result.rows[0].full_name;
 
       if (typeof req.session.returnPage !== 'undefined') {
-        res.writeHead(300, { Location: req.session.returnPage })
+        return res.redirect(req.session.returnPage)
       } else {
-        res.writeHead(300, { Location: '/AssetTracker'})
+        return res.redirect('/AssetTracker')
       }
     } catch (err) {
       console.error(err)
-      res.writeHead(300, { Location: '/AssetTracker/LoginServices'})
+      return res.redirect('/AssetTracker/LoginServices')
     }
     res.end()
   })
