@@ -12,7 +12,7 @@ var sess = require('express-session')
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
-  .use(sess({ secret: 'keyboard cat', cookie: { secure: true }}))
+  .use(sess({ secret: 'keyboard cat', cookie: {} }))
   .use(bodyParser.urlencoded({ extended: false }))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
