@@ -61,14 +61,11 @@ express()
     }
   })
   .get('/AssetTracker/LoginServices', async (req, res) => {
-    var returnPage = req.session.returnPage
     req.session.destroy(function(err) {
       if (err) {
         console.log(err);
       }
     })
-    sess({ secret: 'keyboard cat', cookie: {} })
-    req.session.returnPage = returnPage
     res.render('pages/AssetTracker/login')
   })
   .post('/AssetTracker/login', async (req, res) => {
