@@ -61,11 +61,15 @@ express()
     }
   })
   .get('/AssetTracker/LoginServices', async (req, res) => {
-    req.session.destroy(function(err) {
-      if (err) {
-        console.log(err);
+    if (typeof req.query.logout !== 'undefined') {
+      if (req.query.logout == 1) {
+        req.session.destroy(function(err) {
+          if (err) {
+            console.log(err);
+          }
+        })
       }
-    })
+    }
     res.render('pages/AssetTracker/login')
   })
   .post('/AssetTracker/login', async (req, res) => {
