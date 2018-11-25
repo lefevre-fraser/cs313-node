@@ -41,6 +41,11 @@ express()
     }
     res.render('pages/AssetTracker/login')
   })
+  .post('/AssetTracker/login', async (req, res) => {
+    res.writeHead(200, {'Content-Type': 'text/html'})
+    res.write("<head><title>Login</title></head>")
+    res.end()
+  })
   .get('/math', function (req, res) { 
   		var result;
   		var op1 = req.query.op1;
