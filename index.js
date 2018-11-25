@@ -50,7 +50,7 @@ express()
   .post('/AssetTracker/login', async (req, res) => {
     try {
       const client = await pool.connect()
-      var query = "select (fname || lname) as full_name, user_name from users where user_name = $1::varchar"
+      var query = "select (fname || ' ' || lname) as full_name, user_name from users where user_name = $1::varchar"
       const result = await client.query(query, [req.body.user_name])
       req.session.user_name = result.rows[0].user_name;
       req.session.full_name = result.rows[0].full_name;
