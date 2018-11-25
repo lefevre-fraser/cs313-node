@@ -55,7 +55,6 @@ express()
       }
     } catch (err) {
       console.error(err)
-      res.send("ERROR: " + err)
       res.writeHead(301, { Location: '/AssetTracker/LoginServices'})
     }
     res.end()
