@@ -38,11 +38,7 @@ express()
     }
   })
   .get('/AssetTracker/LoginServices', async (req, res) => {
-    if (typeof req.session.user_name === 'undefined') {
-      res.render('pages/AssetTracker/login')
-    } else {
-      return res.redirect('/AssetTracker')
-    }
+    res.render('pages/AssetTracker/login')
   })
   .get('/AssetTracker/logout', function (req, res) {
     req.session.destroy(function(err) {
