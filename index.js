@@ -42,15 +42,21 @@ express()
     res.render('pages/AssetTracker/login')
   })
   .post('/AssetTracker/login', async (req, res) => {
-    const client = await pool.connect()
-    var query = "select user_id, user_name from users where user_name = $1::varchar"
-    const result = await client.query(query, [req.query.user_name])
-    req.session.user_name = result.rows[0].user_name;
+    try {
+      const client = await pool.connect()
+      var query = "select user_id, user_name from users where user_name = $1::varchar"
+      const result = await client.query(query, [req.query.user_name])
+      req.session.user_name = result.rows[0].user_name;
 
-    if (typeof req.session.returnPage !== 'undefined') {
-      res.writeHead(301, { Location: req.session.returnPage })
-    } else {
-      res.writeHead(301, { Location: '/AssetTracker'})
+      if (typeof req.session.returnPage !== 'undefined') {
+        res.writeHead(301, { Location: req.session.returnPage })
+      } else {
+        res.writeHead(301, { Location: '/AssetTracker'})
+      }
+    } catch (err) {
+      console.error(err)
+      res.send("ERROR: " + err)
+      res.writeHead(301, { Location: '/AssetTracker/LoginServices'})
     }
     res.end()
   })
