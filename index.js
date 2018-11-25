@@ -20,7 +20,7 @@ express()
       res.locals.username = req.session.username
       res.render('pages/AssetTracker/assets')
     } else {
-      res.session.returnPage = '/AssetTracker'
+      req.session.returnPage = '/AssetTracker'
       res.writeHead(301, { Location: '/AssetTracker/LoginServices'})
       res.end()
     }
@@ -30,7 +30,7 @@ express()
       res.locals.username = req.session.username
       res.render('pages/AssetTracker/user')
     } else {
-      res.session.returnPage = '/AssetTracker/UserAccount'
+      req.session.returnPage = '/AssetTracker/UserAccount'
       res.writeHead(301, { Location: '/AssetTracker/LoginServices'})
       res.end()
     }
@@ -42,8 +42,16 @@ express()
     res.render('pages/AssetTracker/login')
   })
   .post('/AssetTracker/login', async (req, res) => {
-    res.writeHead(200, {'Content-Type': 'text/html'})
-    res.write("<head><title>Login</title></head>")
+    const client = await pool.connect()
+    var query = "select user_id, user_name from users where user_name = $1::string"
+    const result = await client.query(query, [req.query.user_name])
+    req.session.user_name = results.rows[0].user_name;
+
+    if (typeof req.session.returnPage !== 'undefined') {
+      res.writeHead(301, { Location: req.session.returnPage })
+    } else {
+      res.writeHead(301, { Location: '/AssetTracker'})
+    }
     res.end()
   })
   .get('/math', function (req, res) { 
