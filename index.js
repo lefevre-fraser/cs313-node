@@ -49,7 +49,7 @@ express()
       var query = "select user_id, user_name from users where user_name = $1::text"
       console.log(req.body.user_name)
       const result = await client.query(query, [req.body.user_name])
-      console.log(JSON.stringify(result))
+      console.log(JSON.stringify(result.rows))
       req.session.user_name = result.rows[0].user_name;
 
       if (typeof req.session.returnPage !== 'undefined') {
