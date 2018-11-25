@@ -24,7 +24,7 @@ express()
       res.render('pages/AssetTracker/assets')
     } else {
       req.session.returnPage = '/AssetTracker'
-      res.writeHead(301, { Location: '/AssetTracker/LoginServices'})
+      res.writeHead(300, { Location: '/AssetTracker/LoginServices'})
       res.end()
     }
   })
@@ -35,7 +35,7 @@ express()
       res.render('pages/AssetTracker/user')
     } else {
       req.session.returnPage = '/AssetTracker/UserAccount'
-      res.writeHead(301, { Location: '/AssetTracker/LoginServices'})
+      res.writeHead(300, { Location: '/AssetTracker/LoginServices'})
       res.end()
     }
   })
@@ -43,7 +43,7 @@ express()
     if (typeof req.session.user_name === 'undefined') {
       res.render('pages/AssetTracker/login')
     } else {
-      res.writeHead(301, { Location: '/AssetTracker'})
+      res.writeHead(300, { Location: '/AssetTracker'})
       res.end()
     }
   })
@@ -54,10 +54,10 @@ express()
           console.log(err);
         }
       })
-      res.writeHead(301, { Location: '/AssetTracker/logout'})
+      res.writeHead(300, { Location: '/AssetTracker/logout'})
       res.end()
     } else {
-      res.writeHead(301, { Location: '/AssetTracker/LoginServices'})
+      res.writeHead(300, { Location: '/AssetTracker/LoginServices'})
       res.end()
     }
   })
@@ -70,13 +70,13 @@ express()
       req.session.full_name = result.rows[0].full_name;
 
       if (typeof req.session.returnPage !== 'undefined') {
-        res.writeHead(301, { Location: req.session.returnPage })
+        res.writeHead(300, { Location: req.session.returnPage })
       } else {
-        res.writeHead(301, { Location: '/AssetTracker'})
+        res.writeHead(300, { Location: '/AssetTracker'})
       }
     } catch (err) {
       console.error(err)
-      res.writeHead(301, { Location: '/AssetTracker/LoginServices'})
+      res.writeHead(300, { Location: '/AssetTracker/LoginServices'})
     }
     res.end()
   })
