@@ -25,7 +25,7 @@
 			</tbody>
 			<thead class='thead-dark'><tr class='border-black'><th scope='row'>Total Asset Worth</th>
 				<th colspan="2"></th>
-				<th>$</th></tr>
+				<th id="total"></th></tr>
 			</thead>
 		</table>
 
@@ -36,6 +36,7 @@
 			$(document).ready(function() {
 				$.get("/AssetTracker/AssetList", { search_context: "" }, function(data) {
 						var table = "";
+						var total = 0;
 						data.forEach( function(element) {
 							table += "<tr><td>";
 							table += element.asset_name;
@@ -45,8 +46,10 @@
 							table += element.asset_value;
 							table += "</td><td>";
 							table += element.quantity * element.asset_value;
+							total += element.quantity * element.asset_value;
 							table += "</td></tr>";
 						});
+						$("#total").html("$" + total);
 						$("#assets").html(table);
 				});
 			});
