@@ -54,10 +54,10 @@
 						data.forEach( function(element) {
 							table += "<tr class=\"border-black\"><th scope=\"row\">";
 							table += element.asset_name;
-							table += "</th><td>";
-							table += element.quantity;
-							table += "</td><td>";
-							table += element.asset_value;
+							table += "</th><td><input type=\"number\" class=\"light-grey tab-sm\" ";
+							table += "value=\"" + element.quantity + "\">";
+							table += "</td><td><input type=\"number\" class=\"light-grey tab-sm\" ";
+							table += "value=\"" + element.asset_value + "\">";
 							table += "</td><td>";
 							table += element.quantity * element.asset_value;
 							total += element.quantity * element.asset_value;
