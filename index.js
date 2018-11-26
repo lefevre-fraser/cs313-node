@@ -29,14 +29,18 @@ express()
     }
   })
   .get('/AssetTracker/AssetList', async (req, res) => {
-    const client = await pool.connect()
-    var query = "select a.asset_name, a.asset_id, ua.quantity, ua.asset_value";
-    query    += " from user_assets ua inner join assets a";
-    query    += " on ua.asset_id = a.asset_id";
-    query    += " where ua.user_name = $1::varchar";
-    query    += " and UPPER(a.asset_name) like $2::varchar";
-    const result = await client.query(query, [req.session.user_name, '%' + req.query.search_context + '%'])
-    res.send(result.rows)
+    try {
+      const client = await pool.connect()
+      var query = "select a.asset_name, a.asset_id, ua.quantity, ua.asset_value";
+      query    += " from user_assets ua inner join assets a";
+      query    += " on ua.asset_id = a.asset_id";
+      query    += " where ua.user_name = $1::varchar";
+      query    += " and UPPER(a.asset_name) like $2::varchar";
+      const result = await client.query(query, [req.session.user_name, '%' + req.query.search_context + '%'])
+      res.send(result.rows)
+    } catch (err) {
+      console.error(err);
+    }
   })
   .get('/AssetTracker/InsertForm', async (req, res) => {
     if (typeof req.session.user_name !== 'undefined') {
@@ -69,7 +73,7 @@ express()
 
         res.render('pages/AssetTracker/user')
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     } else {
       req.session.returnPage = '/AssetTracker/UserAccount'
@@ -81,7 +85,7 @@ express()
       if (req.query.logout == 1) {
         req.session.destroy(function(err) {
           if (err) {
-            console.log(err);
+            console.error(err);
           }
         })
       }
