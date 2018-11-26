@@ -33,8 +33,8 @@
 		<% include includes/bootstrapFooter.ejs %>
 
 		<script>
-			$(document).ready(function() {
-				$.get("/AssetTracker/AssetList", { search_context: "" }, function(data) {
+			function GetAssets(search_string, order) {
+				$.get("/AssetTracker/AssetList", { search_context: search_string }, function(data) {
 						var table = "";
 						var total = 0;
 						data.forEach( function(element) {
@@ -52,6 +52,10 @@
 						$("#total").html("$" + total);
 						$("#assets").html(table);
 				});
+			}
+			$(document).ready(
+				function () {
+				GetAssets("", null);
 			});
 		</script>
 	</div>
