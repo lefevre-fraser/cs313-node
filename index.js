@@ -38,6 +38,17 @@ express()
       query    += " on u.user_id = ua.user_id"
       query    += " where u.user_name = $1::varchar"
       query    += " and UPPER(a.asset_name) like UPPER($2::varchar)"
+      switch (req.query.order_by) {
+        case '2':
+          query += " order by ua.quantity, a.asset_name, ua.asset_value"
+          break;
+        case '3':
+          query += " order by ua.asset_value, a.asset_name, ua.quantity"
+        case '1':
+        default:
+          query += " order_by a.asset_name, ua.quantity, ua.asset_value"
+          break;
+      }
       const result = await client.query(query, [req.session.user_name, '%' + req.query.search_context + '%'])
       client.release()
       res.send(result.rows)
