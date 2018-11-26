@@ -28,7 +28,7 @@ express()
       return res.redirect('/AssetTracker/LoginServices')
     }
   })
-  .get('/AssetTracker/AssetsList', async (req, res) => {
+  .get('/AssetTracker/AssetList', async (req, res) => {
     const client = await pool.connect()
     var query = "select a.asset_name, a.asset_id, ua.quantity, ua.asset_value";
     query    += " from user_assets ua inner join assets a";
