@@ -57,16 +57,20 @@ express()
     }
   })
   .get('/AssetTracker/Insert', async (req, res) => {
-    const client = await pool.connect()
-    var query = "select insert_asset( $1::varchar , $2::integer , $3::bigint , $4::text )"
-    var user_name   = req.session.user_name
-    var quantity    = req.query.quantity
-    var asset_value = req.query.asset_value
-    var asset_name  = req.query.asset_name
-    const params = [user_name, quantity, asset_value, asset_name]
-    const result = await client.query(query, params)
-    client.release()
-    res.send(result.rows[0].insert_asset)
+    try {
+      const client = await pool.connect()
+      var query = "select insert_asset( $1::varchar , $2::integer , $3::bigint , $4::text )"
+      var user_name   = req.session.user_name
+      var quantity    = req.query.quantity
+      var asset_value = req.query.asset_value
+      var asset_name  = req.query.asset_name
+      const params = [user_name, quantity, asset_value, asset_name]
+      const result = await client.query(query, params)
+      client.release()
+      res.send(result.rows[0].insert_asset)
+    } catch (err) {
+      console.error(err)
+    }
   })
   .get('/AssetTracker/UserAccount', async (req, res) => {
     if (typeof req.session.user_name !== 'undefined') {
