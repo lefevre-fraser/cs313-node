@@ -35,7 +35,7 @@ express()
       
       res.render('pages/AssetTracker/insert')
     } else {
-      req.session.returnPage = '/AssetTracker'
+      req.session.returnPage = '/AssetTracker/InsertForm'
       return res.redirect('/AssetTracker/LoginServices')
     }
   })
