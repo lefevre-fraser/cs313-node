@@ -33,11 +33,23 @@
 		<% include includes/bootstrapFooter.ejs %>
 
 		<script>
-			// $(document).ready(function() {
-			// 	$.get("/AssetTracker/AssetList", { search_context: "" }, function(data) {
-			// 			$("#assets").html(data);
-			// 	});
-			// });
+			$(document).ready(function() {
+				$.get("/AssetTracker/AssetList", { search_context: "" }, function(data) {
+						var table = "";
+						data.forEach( function(element) {
+							table += "<tr><td>";
+							table += element.asset_name;
+							table += "</td><td>";
+							table += element.quantity;
+							table += "</td><td>";
+							table += element.asset_value;
+							table += "</td><td>";
+							table += element.quantity * element.asset_value;
+							table += "</td></tr>";
+						});
+						$("#assets").html(table);
+				});
+			});
 		</script>
 	</div>
 </body>
