@@ -67,7 +67,7 @@ express()
       const params = [user_name, quantity, asset_value, asset_name]
       const result = await client.query(query, params)
       client.release()
-      res.send(result.rows[0].insert_asset)
+      res.send("" + result.rows[0].insert_asset)
     } catch (err) {
       console.error(err)
     }
