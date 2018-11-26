@@ -21,12 +21,22 @@ express()
     if (typeof req.session.user_name !== 'undefined') {
       res.locals.user_name = req.session.user_name
       res.locals.full_name = req.session.full_name
-      
+
       res.render('pages/AssetTracker/assets')
     } else {
       req.session.returnPage = '/AssetTracker'
       return res.redirect('/AssetTracker/LoginServices')
     }
+  })
+  .get('/AssetTracker/AssetsList', async (req, res) => {
+    const client = await pool.connect()
+    var query = "select a.asset_name, a.asset_id, ua.quantity, ua.asset_value";
+    query    += " from user_assets ua inner join assets a";
+    query    += " on ua.asset_id = a.asset_id";
+    query    += " where ua.user_name = $1::varchar";
+    query    += " and UPPER(a.asset_name) like $2::varchar";
+    const result = await client.query(query, [req.session.user_name, '%' + req.query.search_context + '%'])
+    return result.rows
   })
   .get('/AssetTracker/InsertForm', async (req, res) => {
     if (typeof req.session.user_name !== 'undefined') {

@@ -11,6 +11,32 @@
 	<div id="main_div" class="container">
 		<% include includes/header.ejs %>
 
+		<table class='table'><p></p>
+			<thead class='thead-dark'><tr class='border-black'>
+				<th class='col text-nowrap'>Asset Name</th>
+				<th class='col text-nowrap'>Quantity</th>
+				<th class='col text-nowrap'>Unit Value</th>
+				<th class='col text-nowrap'>Total Value</th>
+				</tr>
+			</thead>
+			<tbody id="assets">
+
+
+			</tbody>
+			<thead class='thead-dark'><tr class='border-black'><th scope='row'>Total Asset Worth</th>
+				<th colspan="2"></th>
+				<th>$</th></tr>
+			</thead>
+		</table>
+
+		<script>
+			$(document).ready(function() {
+				$.get("/AssetTracker/AssetList", { search_context: "" }).done(function(data) {
+						$(".assets").html(data);
+				});
+			});
+		</script>
+
 		<% include includes/footer.ejs %>
 		<% include includes/bootstrapFooter.ejs %>
 	</div>
