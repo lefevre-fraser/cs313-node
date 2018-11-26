@@ -55,13 +55,7 @@ express()
         query    += " on u.area_code_id = ac.area_code_id"
         query    += " where u.user_name = $1::varchar"
         const result = await client.query(query, [req.session.user_name])
-        const row = result.rows[0]
-
-        res.locals.fname = row.fname
-        res.locals.lname = row.lname
-        res.locals.mname = row.mname
-        res.locals.phone_number = row.phone_number
-        res.locals.creation_date = row.creation_date
+        res.locals.user = result.rows[0]
 
         res.render('pages/AssetTracker/user')
       } catch (err) {
