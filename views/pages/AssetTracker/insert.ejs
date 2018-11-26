@@ -25,7 +25,11 @@
 
 		<script>
 			$(document).ready(function() {
-				$("#insert").ajaxForm({ url: '/AssetTracker/Insert', type: 'get' })
+				$("#insert").submit(function() {
+					$.get('/AssetTracker/Insert' + $("#insert").serialize(), function (data) {
+							alert(data);
+					});
+				});
 			});
 		</script>
 
