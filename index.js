@@ -44,6 +44,7 @@ express()
           break;
         case '3':
           query += " order by ua.asset_value, a.asset_name, ua.quantity"
+          break;
         case '1':
         default:
           query += " order by a.asset_name, ua.quantity, ua.asset_value"
