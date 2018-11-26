@@ -19,16 +19,14 @@
 				<input type="number" name="quantity" value="1" required><br>
 				<label>Unit Value:</label><br>
 				<input type="number" name="asset_value" placeholder="20" required><br><br>
-				<button id="insert" type="submit" class="btn btn-block">Add Item To Assets</button>
+				<button id="insert" type="submit" onclick="InsertAsset();" class="btn btn-block">Add Item To Assets</button>
 			</div>
 		</div>
 
 		<script>
-			$(document).ready(function() {
-				$("#insert").click(function() {
-					alert("hi");
-				});
-			});
+			function InsertAsset() {
+				alert("hi");
+			}
 		</script>
 
 		<% include includes/footer.ejs %>
