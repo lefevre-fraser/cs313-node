@@ -45,17 +45,6 @@ express()
       console.error(err);
     }
   })
-  .get('/AssetTracker/InsertForm', async (req, res) => {
-    if (typeof req.session.user_name !== 'undefined') {
-      res.locals.user_name = req.session.user_name
-      res.locals.full_name = req.session.full_name
-      
-      res.render('pages/AssetTracker/insert')
-    } else {
-      req.session.returnPage = '/AssetTracker/InsertForm'
-      return res.redirect('/AssetTracker/LoginServices')
-    }
-  })
   .get('/AssetTracker/Insert', async (req, res) => {
     try {
       const client = await pool.connect()
@@ -70,6 +59,17 @@ express()
       res.send("" + result.rows[0].insert_asset)
     } catch (err) {
       console.error(err)
+    }
+  })
+  .get('/AssetTracker/InsertForm', async (req, res) => {
+    if (typeof req.session.user_name !== 'undefined') {
+      res.locals.user_name = req.session.user_name
+      res.locals.full_name = req.session.full_name
+      
+      res.render('pages/AssetTracker/insert')
+    } else {
+      req.session.returnPage = '/AssetTracker/InsertForm'
+      return res.redirect('/AssetTracker/LoginServices')
     }
   })
   .get('/AssetTracker/UserAccount', async (req, res) => {
