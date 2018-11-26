@@ -46,7 +46,7 @@ express()
           query += " order by ua.asset_value, a.asset_name, ua.quantity"
         case '1':
         default:
-          query += " order_by a.asset_name, ua.quantity, ua.asset_value"
+          query += " order by a.asset_name, ua.quantity, ua.asset_value"
           break;
       }
       const result = await client.query(query, [req.session.user_name, '%' + req.query.search_context + '%'])
