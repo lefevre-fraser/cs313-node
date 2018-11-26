@@ -26,7 +26,8 @@
 		<script>
 			$(document).ready(function() {
 				$("#insert").submit(function() {
-					$.get('/AssetTracker/Insert' + $("#insert").serialize(), function (data) {
+					console.log($("#insert").serialize());
+					$.get('/AssetTracker/Insert?' + $("#insert").serialize(), function (data) {
 							alert(data);
 					});
 				});
