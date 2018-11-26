@@ -56,7 +56,7 @@ express()
       return res.redirect('/AssetTracker/LoginServices')
     }
   })
-  .get('/AssetTracker/InsertAsset', async (req, res) => {
+  .get('/AssetTracker/Insert', async (req, res) => {
     try {
       const client = await pool.connect()
       var query = "select insert_asset( $1::varchar , $2::integer , $3::bigint , $4::text )"

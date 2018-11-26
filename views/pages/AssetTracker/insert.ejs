@@ -12,7 +12,7 @@
 		<% include includes/header.ejs %>
 
 		<div class="container h-100 d-flex justify-content-center">
-			<form id="insert">
+			<form>
 				<label>Asset Name:</label><br>
 				<input type="text" name="asset_name" placeholder="Couch" required><br>
 				<label>Quantity:</label><br>
@@ -25,7 +25,9 @@
 
 		<script>
 			function InsertAsset() {
-				alert($("#insert").serialize());
+				$.get('/AssetTracker/Insert?' + $("form").serialize(), function(data) {
+					alert(data);
+				});
 			}
 		</script>
 
