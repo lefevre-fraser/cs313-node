@@ -39,7 +39,7 @@ express()
       query    += " where u.user_name = $1::varchar"
       query    += " and UPPER(a.asset_name) like UPPER($2::varchar)"
       const result = await client.query(query, [req.session.user_name, '%' + req.query.search_context + '%'])
-      client.release();
+      client.release()
       res.send(result.rows)
     } catch (err) {
       console.error(err);
@@ -55,6 +55,18 @@ express()
       req.session.returnPage = '/AssetTracker/InsertForm'
       return res.redirect('/AssetTracker/LoginServices')
     }
+  })
+  .get('/AssetTracker/Insert', async (req, res) => {
+    const client = await pool.connect()
+    var query = "select insert_asset( $1::varchar , $2::integer , $3::bigint , $4::text )"
+    var user_name   = req.session.user_name
+    var quantity    = req.query.quantity
+    var asset_value = req.query.asset_value
+    var asset_name  = req.query.asset_name
+    const params = [user_name, quantity, asset_value, asset_name]
+    const result = await client.query(query, params)
+    client.release()
+    res.send(result.rows[0].insert_asset)
   })
   .get('/AssetTracker/UserAccount', async (req, res) => {
     if (typeof req.session.user_name !== 'undefined') {
@@ -72,7 +84,7 @@ express()
         query    += " on u.area_code_id = ac.area_code_id"
         query    += " where u.user_name = $1::varchar"
         const result = await client.query(query, [req.session.user_name])
-        client.release();
+        client.release()
         res.locals.user = result.rows[0]
 
         res.render('pages/AssetTracker/user')
@@ -101,7 +113,7 @@ express()
       const client = await pool.connect()
       var query = "select (fname || ' ' || lname) as full_name, user_name from users where user_name = $1::varchar"
       const result = await client.query(query, [req.body.user_name])
-      client.release();
+      client.release()
       req.session.user_name = result.rows[0].user_name;
       req.session.full_name = result.rows[0].full_name;
 

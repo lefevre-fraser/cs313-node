@@ -25,6 +25,12 @@
 			<button id="filter" type="submit">Search</button><br>
 		</div><hr>
 
+
+
+		<form id="asset_form">
+		<button type='submit' name='update'>Update Assets</button>
+		<button type='submit' name='delete' onclick="return confirmDelete();">Delete Assets</button>
+
 		<table class='table'><p></p>
 			<thead class='thead-dark'><tr class='border-black'>
 				<th class='col text-nowrap'>Asset Name</th>
@@ -42,6 +48,10 @@
 				<th id="total"></th></tr>
 			</thead>
 		</table>
+
+		<button type='submit' name='update'>Update Assets</button>
+		<button type='submit' name='delete' onclick="return confirmDelete();">Delete Assets</button>
+		</form>
 
 		<% include includes/footer.ejs %>
 		<% include includes/bootstrapFooter.ejs %>
@@ -76,6 +86,8 @@
 					var search_string = $("#search_context").val();
 					GetAssets(search_string, order);	
 				});
+
+				$	
 			});
 		</script>
 	</div>
