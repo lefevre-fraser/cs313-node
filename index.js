@@ -31,11 +31,13 @@ express()
   .get('/AssetTracker/AssetList', async (req, res) => {
     try {
       const client = await pool.connect()
-      var query = "select a.asset_name, a.asset_id, ua.quantity, ua.asset_value";
-      query    += " from user_assets ua inner join assets a";
-      query    += " on ua.asset_id = a.asset_id";
-      query    += " where ua.user_name = $1::varchar";
-      query    += " and UPPER(a.asset_name) like $2::varchar";
+      var query = "select a.asset_name, a.asset_id, ua.quantity, ua.asset_value"
+      query    += " from user_assets ua inner join assets a"
+      query    += " on ua.asset_id = a.asset_id"
+      query    += " inner join users u"
+      query    += " on u.user_id = ua.user_id"
+      query    += " where u.user_name = $1::varchar"
+      query    += " and UPPER(a.asset_name) like $2::varchar"
       const result = await client.query(query, [req.session.user_name, '%' + req.query.search_context + '%'])
       res.send(result.rows)
     } catch (err) {
