@@ -21,15 +21,19 @@ express()
     if (typeof req.session.user_name !== 'undefined') {
       res.locals.user_name = req.session.user_name
       res.locals.full_name = req.session.full_name
-
-      if (typeof req.session.insert !== 'undefined') {
-        if (req.session.insert == 1) {
-          res.render('pages/AssetTracker/insert')
-          return;
-        }
-      }
       
       res.render('pages/AssetTracker/assets')
+    } else {
+      req.session.returnPage = '/AssetTracker'
+      return res.redirect('/AssetTracker/LoginServices')
+    }
+  })
+  .get('/AssetTracker/InsertForm' async (req, res) => {
+    if (typeof req.session.user_name !== 'undefined') {
+      res.locals.user_name = req.session.user_name
+      res.locals.full_name = req.session.full_name
+      
+      res.render('pages/AssetTracker/insert')
     } else {
       req.session.returnPage = '/AssetTracker'
       return res.redirect('/AssetTracker/LoginServices')
