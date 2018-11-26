@@ -39,6 +39,7 @@ express()
       query    += " where u.user_name = $1::varchar"
       query    += " and UPPER(a.asset_name) like UPPER($2::varchar)"
       const result = await client.query(query, [req.session.user_name, '%' + req.query.search_context + '%'])
+      client.release();
       res.send(result.rows)
     } catch (err) {
       console.error(err);
@@ -71,6 +72,7 @@ express()
         query    += " on u.area_code_id = ac.area_code_id"
         query    += " where u.user_name = $1::varchar"
         const result = await client.query(query, [req.session.user_name])
+        client.release();
         res.locals.user = result.rows[0]
 
         res.render('pages/AssetTracker/user')
@@ -99,6 +101,7 @@ express()
       const client = await pool.connect()
       var query = "select (fname || ' ' || lname) as full_name, user_name from users where user_name = $1::varchar"
       const result = await client.query(query, [req.body.user_name])
+      client.release();
       req.session.user_name = result.rows[0].user_name;
       req.session.full_name = result.rows[0].full_name;
 
