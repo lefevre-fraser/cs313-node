@@ -11,7 +11,7 @@
 	<div id="main_div" class="container">
 		<% include includes/header.ejs %>
 
-		<div>
+		<form>
 			<label>Search by Asset Name:</label><br>
 			<input id='search_context' type='text' placeholder='Couch'><br>
 
@@ -22,8 +22,8 @@
 				<option value='asset_value'>Unit Value</option>
 			</select><br><br>
 
-			<button id="filter">Search</button><br>
-		</div><hr>
+			<button id="filter" type="submit">Search</button><br>
+		</form><hr>
 
 		<table class='table'><p></p>
 			<thead class='thead-dark'><tr class='border-black'>
