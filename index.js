@@ -37,7 +37,7 @@ express()
       query    += " inner join users u"
       query    += " on u.user_id = ua.user_id"
       query    += " where u.user_name = $1::varchar"
-      query    += " and UPPER(a.asset_name) like $2::varchar"
+      query    += " and UPPER(a.asset_name) like UPPER($2::varchar)"
       const result = await client.query(query, [req.session.user_name, '%' + req.query.search_context + '%'])
       res.send(result.rows)
     } catch (err) {
