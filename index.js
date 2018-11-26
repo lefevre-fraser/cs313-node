@@ -36,7 +36,7 @@ express()
     query    += " where ua.user_name = $1::varchar";
     query    += " and UPPER(a.asset_name) like $2::varchar";
     const result = await client.query(query, [req.session.user_name, '%' + req.query.search_context + '%'])
-    return result.rows
+    res.send(result.rows)
   })
   .get('/AssetTracker/InsertForm', async (req, res) => {
     if (typeof req.session.user_name !== 'undefined') {
