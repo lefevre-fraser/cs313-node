@@ -11,6 +11,20 @@
 	<div id="main_div" class="container">
 		<% include includes/header.ejs %>
 
+		<div>
+			<label>Search by Asset Name:</label><br>
+			<input id='search_context' type='text' placeholder='Couch'><br>
+
+			<label>Order By:</label><br>
+			<select id='order_by'>
+				<option value='asset_name'>Asset Name</option>
+				<option value='quantity'>Quantity</option>
+				<option value='asset_value'>Unit Value</option>
+			</select><br><br>
+
+			<button id="filter">Search</button><br>
+		</div><hr>
+
 		<table class='table'><p></p>
 			<thead class='thead-dark'><tr class='border-black'>
 				<th class='col text-nowrap'>Asset Name</th>
@@ -56,6 +70,12 @@
 			$(document).ready(
 				function () {
 				GetAssets("", null);
+
+				$("#filter").click(function() {
+					var order = $("#order_by option:selected").val();
+					var search_string = $("#search_context").val();
+					GetAssets(search_string, order);	
+				});
 			});
 		</script>
 	</div>
