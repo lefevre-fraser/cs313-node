@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Asset Tracker</title>
+	<% include includes/bootstrapHeader.ejs %>
+	<style type="text/css">
+		<% include main.css %>
+	</style>
+</head>
+<body>
+	<div id="main_div" class="container">
+		<% include includes/header.ejs %>
+
+		<div class="container h-100 d-flex justify-content-center">
+			<form action="insert.php" method="post">
+				<label>Asset Name:</label><br>
+				<input type="text" name="asset_name" placeholder="Couch" required><br>
+				<label>Quantity:</label><br>
+				<input type="number" name="quantity" value="1" required><br>
+				<label>Unit Value:</label><br>
+				<input type="number" name="asset_value" placeholder="20" required><br><br>
+				<button type="submit" class="btn btn-block">Add Item To Assets</button>
+			</form>
+		</div>
+
+		<% include includes/footer.ejs %>
+		<% include includes/bootstrapFooter.ejs %>
+	</div>
+</body>
+</html>
