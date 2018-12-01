@@ -60,18 +60,24 @@ express()
     }
   })
   .get('/AssetTracker/update', async (req, res) => {
-    const client = await pool.connect()
-    var query = "select change_user_asset($1::varchar , $2::integer , $3::bigint , $4::bigint , $5::integer)"
-    var user_name = req.session.user_name
-    req.query.assets.forEach(async (element, index) => {
-      var uniqueName = element
-      var quantity = req.query[uniqueName].quantity
-      var new_asset_value = req.query[uniqueName].asset_value
-      var asset_id_value = uniqueName.split('-')
-      const result = await client.query(query, [user_name, asset_id_value[0], new_asset_value, asset_id_value[1], quantity])
-    });
-    res.send("0")
-    client.release()
+    try {
+      const client = await pool.connect()
+      var query = "select change_user_asset($1::varchar , $2::integer , $3::bigint , $4::bigint , $5::integer)"
+      var user_name = req.session.user_name
+
+      await req.query.assets.forEach(async (element, index) => {
+        var uniqueName = element
+        var quantity = req.query[uniqueName].quantity
+        var new_asset_value = req.query[uniqueName].asset_value
+        var asset_id_value = uniqueName.split('-')
+        const result = await client.query(query, [user_name, asset_id_value[0], new_asset_value, asset_id_value[1], quantity])
+      });
+
+      client.release()
+      res.send("0")
+    } catch (err) {
+      console.error(err)
+    }
   })
   .get('/AssetTracker/InsertForm', async (req, res) => {
     if (typeof req.session.user_name !== 'undefined') {
