@@ -63,7 +63,7 @@ express()
     const client = await pool.connect()
     var query = "select change_user_asset($1::varchar , $2::integer , $3::bigint , $4::bigint , $5::integer)"
     var user_name = req.session.user_name
-    req.session.assets.forEach(async (element, index) => {
+    req.query.assets.forEach(async (element, index) => {
       var uniqueName = element
       var quantity = req.query.uniqueName.quantity
       var new_asset_value = req.query.uniqueName.asset_value
