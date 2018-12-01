@@ -63,7 +63,7 @@ express()
     const client = await pool.connect()
     var query = "select change_user_asset($1::varchar , $2::integer , $3::bigint , $4::bigint , $5::integer)"
     user_name = req.session.user_name
-    connst result = await client.query(query, [])
+    const result = await client.query(query, [])
   })
   .get('/AssetTracker/InsertForm', async (req, res) => {
     if (typeof req.session.user_name !== 'undefined') {
