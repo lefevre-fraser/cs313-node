@@ -69,9 +69,9 @@ express()
       var new_asset_value = req.query[uniqueName].asset_value
       var asset_id_value = uniqueName.split('-')
       const result = await client.query(query, [user_name, asset_id_value[0], new_asset_value, asset_id_value[1], quantity])
+      res.send(result.rows[0].change_user_asset)
     });
     client.release()
-    res.send("0")
   })
   .get('/AssetTracker/InsertForm', async (req, res) => {
     if (typeof req.session.user_name !== 'undefined') {

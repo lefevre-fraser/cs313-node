@@ -57,27 +57,16 @@
 		<% include includes/bootstrapFooter.ejs %>
 
 		<script>
-			var xmlReq;
-
 			function check (id) {
 				$("#" + id).prop("checked", true);
 			}
 
 			function UpdateAssets() {
-				xmlReq = new new XMLHttpRequest();
-				xmlReq.open("GET", "/AssetTracker/update", true);
-				xmlReq.onreadystatechange = function() {
-					if(this.readyState == 4 && this.status == 200) {
-						alert(this.responseText);
-					}
-				};
-				xmlReq.send($("form").serialize());
-				// $.get("/AssetTracker/update?" + $("form").serialize(), function(data) {
-				// 	alert(data);
-				// });
-
-				GetAssets("", 1);
-
+				$.get("/AssetTracker/update?" + $("form").serialize(), function(data) {
+					GetAssets("", 1);
+					alert(data);
+				});
+					
 				return false;
 			}
 
