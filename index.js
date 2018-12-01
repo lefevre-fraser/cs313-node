@@ -126,6 +126,11 @@ express()
     }
     res.render('pages/AssetTracker/login')
   })
+  .get('/password', async (req, res) => {
+    bcrypt.hash('LeFevre7', saltRounds, function(err, hash) {
+      res.send(hash)
+    })
+  })
   .post('/AssetTracker/login', async (req, res) => {
     try {
       const client = await pool.connect()
@@ -142,6 +147,8 @@ express()
         if (res) {
           req.session.user_name = result.rows[0].user_name;
           req.session.full_name = result.rows[0].full_name;  
+        } else {
+          console.log("Nice try!")
         }
       })
       
