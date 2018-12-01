@@ -68,7 +68,7 @@
 						var table = "";
 						var total = 0;
 						data.forEach( function(element) {
-							var uniqueName = element.asset_id + "+" + element.asset_value;
+							var uniqueName = element.asset_id + "-" + element.asset_value;
 							table += "<tr class=\"border-black\"><th scope=\"row\">";
 							table += "<input type=\"checkbox\" name=\"assets[]\" value=\"";
 							table += uniqueName + "\" id=\"" + uniqueName + "\">";
