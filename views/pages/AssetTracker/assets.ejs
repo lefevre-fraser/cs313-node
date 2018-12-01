@@ -28,7 +28,7 @@
 
 
 		<form id="asset_form">
-		<button type='submit' name='update'>Update Assets</button>
+		<button type='submit' name='update' onclick="return UpdateAssets();">Update Assets</button>
 		<button type='submit' name='delete' onclick="return confirmDelete();">Delete Assets</button>
 
 		<table class='table'><p></p>
@@ -49,7 +49,7 @@
 			</thead>
 		</table>
 
-		<button type='submit' name='update'>Update Assets</button>
+		<button type='submit' name='update' onclick="return UpdateAssets();">Update Assets</button>
 		<button type='submit' name='delete' onclick="return confirmDelete();">Delete Assets</button>
 		</form>
 
@@ -65,6 +65,10 @@
 				$.get("/AssetTracker/update?" + $("form").serialize(), function(data) {
 					alert(data);
 				});
+
+				GetAssets("", 1);
+
+				return false;
 			}
 
 			function GetAssets(search_string, order) {
