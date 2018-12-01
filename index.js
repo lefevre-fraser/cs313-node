@@ -140,7 +140,7 @@ express()
       client.release()
 
       console.log(result.rows[0].hashed_password)
-      console.log(result.body.password)
+      console.log(req.body.password)
       bcrypt.compare(req.body.password, result.rows[0].hashed_password, function(err, res) {
         if (err) {
           console.error(err)
