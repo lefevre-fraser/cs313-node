@@ -83,7 +83,7 @@ express()
     try {
       const client = await pool.connect()
       var query = "delete from user_assets"
-      query    += " wehre user_id = (select user_id from users where user_name = $1::varchar)"
+      query    += " where user_id = (select user_id from users where user_name = $1::varchar)"
       query    += " and asset_id = $2::integer"
       query    += " and asset_value = $3::bigint"
       var user_name = req.session.user_name
