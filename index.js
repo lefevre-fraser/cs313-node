@@ -82,7 +82,7 @@ express()
   .get('/AssetTracker/delete', async (req, res) => {
     try {
       const client = await pool.connect()
-      var query = "drop from user_assets"
+      var query = "delete from user_assets"
       query    += " wehre user_id = (select user_id from users where user_name = $1::varchar)"
       query    += " and asset_id = $2::integer"
       query    += " and asset_value = $3::bigint"
