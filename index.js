@@ -139,19 +139,10 @@ express()
       const result = await client.query(query, [req.body.user_name])
       client.release()
 
-      console.log(result.rows[0].hashed_password)
-      console.log(req.body.password)
-      bcrypt.compare(req.body.password, result.rows[0].hashed_password, function(err, res) {
-        if (err) {
-          console.error(err)
-        }
-
+      bcrypt.compare(req.body.password, result.rows[0].hashed_password).then(function(res) {
         if (res) {
-          console.log("Welcome!")
           req.session.user_name = result.rows[0].user_name;
           req.session.full_name = result.rows[0].full_name;  
-        } else {
-          console.log("Nice try!")
         }
       })
       
