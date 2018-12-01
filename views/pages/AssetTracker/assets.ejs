@@ -61,6 +61,11 @@
 				$("#" + id).prop("checked", true);
 			}
 
+			function UpdateAssets() {
+				$.get("/AssetTracker/update?" + $("form").serialize(), function(data) {
+					alert(data);
+				});
+			}
 
 			function GetAssets(search_string, order) {
 				$.get("/AssetTracker/AssetList", { search_context: search_string , order_by : order }, 
