@@ -57,26 +57,36 @@
 		<% include includes/bootstrapFooter.ejs %>
 
 		<script>
+			function check (id) {
+				$("#" + id).prop("checked", true)
+			}
+
+
 			function GetAssets(search_string, order) {
 				$.get("/AssetTracker/AssetList", { search_context: search_string , order_by : order }, 
 					function(data) {
 						var table = "";
 						var total = 0;
 						data.forEach( function(element) {
+							var uniqueName = element.asset_id + "+" + element.asset_value;
 							table += "<tr class=\"border-black\"><th scope=\"row\">";
-							table += element.asset_name;
+							table += "<input type=\"checkbox\" name=\"assets[]\" value=\""
+							table += uniqueName + "\"> id=\"" + uniqueName + "\">" 
+							table += "<label class='tab'>" + element.asset_name + "</label>";
 							table += "</th><td><input type=\"number\" class=\"light-grey tab-sm\" ";
-							table += "value=\"" + element.quantity + "\">";
+							table += "value=\"" + element.quantity + "\" name=\"" + uniqueName "[quantity]\" "
+							table += "onchange=\"check('" + uniqueName + "')\">";
 							table += "</td><td><input type=\"number\" class=\"light-grey tab-sm\" ";
-							table += "value=\"" + element.asset_value + "\">";
+							table += "value=\"" + element.asset_value + "\" name=\"" + uniqueName "[asset_value]\" "
+							table += "onchange=\"check('" + uniqueName + "')\">";
 							table += "</td><td>";
 							table += "$" + element.quantity * element.asset_value;
 							table += "</td></tr>";
 
 							total += element.quantity * element.asset_value;
 						});
-						$("#total").html("$" + total);
 						$("#assets").html(table);
+						$("#total").html("$" + total);
 				});
 			}
 			$(document).ready(
