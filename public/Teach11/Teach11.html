@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Teach 11</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+	<label>Title:</label><br>
+	<input id="search" type="text" name="search"><br>
+	<button onclick="return GetList();">Search!</button>
+
+	<script>
+		function GetList() {
+			$.get('http://www.omdbapi.com', { apikey: "fd25ab10", s: $("#search").val()})
+			.done(function(data) {
+				console.log(JSON.stringify(data));
+				data.Search.forEach( function(element, index) {
+					$("body").append("<div id=\"" + element.imdbID + 
+						"\"><label>" + element.Title + 
+						"</label><button onclick=\"return GetInfo('" + element.imdbID + 
+						"');\">View Details</button></div>")
+				});
+			})
+			.fail(function(err) {
+				alert(err);
+			})
+
+			false;
+		}
+
+		function GetInfo(imdbID) {
+			console.log(imdbID);
+			$.get('http://www.omdbapi.com', { apikey: "fd25ab10", i: imdbID})
+			.done(function(data) {
+				console.log(JSON.stringify(data));					
+				var id = "#" + imdbID;
+				$(id).append("<p>" + JSON.stringify(data) + "</p>");
+			})
+			.fail(function(err) {
+				alert(err);
+			})
+
+			false;
+		}
+	</script>
+</body>
+</html>

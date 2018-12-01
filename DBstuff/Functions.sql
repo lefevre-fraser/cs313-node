@@ -4,7 +4,6 @@ create or replace function insert_user
 ,	f_lname varchar(40)
 ,	f_area_code varchar(3)
 ,	f_phone_number varchar(8)
-,	f_salt_id integer
 ,	f_hashed_password text
 ,	f_mname varchar(40) default null
 )
@@ -38,7 +37,6 @@ BEGIN
 	,	lname
 	,	area_code_id
 	,	phone_number
-	,	salt_id
 	,	hashed_password
 	,	last_changed_by
 	,	last_changed_date
@@ -52,7 +50,6 @@ BEGIN
 	,	f_lname
 	,	(select area_code_id from area_codes where area_code = f_area_code)
 	,	f_phone_number
-	,	(select salt_id from salts where salt_id = f_salt_id)
 	,	f_hashed_password
 	,	(select admin_user_id from admin_users where admin_user_name = 'SYSADMIN')
 	,	current_date
@@ -124,7 +121,7 @@ END;
 $$ language plpgsql;
 
 create or replace function change_user_asset
-(	f_user_id 			integer
+(	f_user_name 		varchar(40)
 ,	f_asset_id 			integer
 ,	f_asset_value 		bigint
 ,	f_old_asset_value 	bigint
@@ -136,7 +133,7 @@ BEGIN
 	UPDATE user_assets
 		SET quantity = f_quantity,
 			asset_value = f_asset_value
-	WHERE user_id  = f_user_id
+	WHERE user_id  = (select user_id from users where user_name = f_user_name)
 	AND   asset_id = f_asset_id
 	AND   asset_value = f_old_asset_value;
 

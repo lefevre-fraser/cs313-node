@@ -1,4 +1,6 @@
 const express = require('express')
+const bcrypt = require('bcrypt')
+const saltRounds = 8
 const bodyParser = require('body-parser')
 const path = require('path')
 const { Pool } = require('pg')
@@ -127,11 +129,22 @@ express()
   .post('/AssetTracker/login', async (req, res) => {
     try {
       const client = await pool.connect()
-      var query = "select (fname || ' ' || lname) as full_name, user_name from users where user_name = $1::varchar"
+      var query = "select (fname || ' ' || lname) as full_name, user_name, hashed_password"
+      query    += " from users where user_name = $1::varchar"
       const result = await client.query(query, [req.body.user_name])
       client.release()
-      req.session.user_name = result.rows[0].user_name;
-      req.session.full_name = result.rows[0].full_name;
+
+      bcrypt.compare(req.body.password, result.rows[0].hashed_password, function(err, res) {
+        if (err) {
+          console.error(err)
+        }
+
+        if (res) {
+          req.session.user_name = result.rows[0].user_name;
+          req.session.full_name = result.rows[0].full_name;  
+        }
+      })
+      
 
       if (typeof req.session.returnPage !== 'undefined') {
         return res.redirect(req.session.returnPage)
