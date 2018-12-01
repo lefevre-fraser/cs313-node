@@ -141,6 +141,7 @@ express()
 
       bcrypt.compare(req.body.password, result.rows[0].hashed_password).then(function(res) {
         if (res) {
+          console.log("Welcome!")
           req.session.user_name = result.rows[0].user_name;
           req.session.full_name = result.rows[0].full_name;  
         }
