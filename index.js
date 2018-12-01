@@ -79,6 +79,28 @@ express()
       console.error(err)
     }
   })
+  .get('/AssetTracker/delete', async (req, res) => {
+    try {
+      const client = await pool.connect()
+      var query = "drop from user_assets"
+      query    += " wehre user_id = (select user_id from users where user_name = $1::varchar)"
+      query    += " and asset_id = $2::integer"
+      query    += " and asset_value = $3::bigint"
+      var user_name = req.session.user_name
+
+      await req.query.assets.forEach( async (element, index) => {
+        var uniqueName = element
+        var asset_id_value = uniqueName.split('-')
+
+        const result = await client.query(query, [user_name, asset_id_value[0], asset_id_value[1]])
+      });
+
+      client.release()
+      res.send("0")
+    } catch(e) {
+      console.log(e);
+    }
+  })
   .get('/AssetTracker/InsertForm', async (req, res) => {
     if (typeof req.session.user_name !== 'undefined') {
       res.locals.user_name = req.session.user_name

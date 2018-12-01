@@ -29,7 +29,7 @@
 
 		<form id="asset_form">
 		<button type='submit' name='update' onclick="return UpdateAssets();">Update Assets</button>
-		<button type='submit' name='delete' onclick="return confirmDelete();">Delete Assets</button>
+		<button type='submit' name='delete' onclick="return DeleteAssets();">Delete Assets</button>
 
 		<table class='table'><p></p>
 			<thead class='thead-dark'><tr class='border-black'>
@@ -50,7 +50,7 @@
 		</table>
 
 		<button type='submit' name='update' onclick="return UpdateAssets();">Update Assets</button>
-		<button type='submit' name='delete' onclick="return confirmDelete();">Delete Assets</button>
+		<button type='submit' name='delete' onclick="return DeleteAssets();">Delete Assets</button>
 		</form>
 
 		<% include includes/footer.ejs %>
@@ -66,6 +66,17 @@
 					GetAssets("", 1);
 					alert(data);
 				});
+
+				return false;
+			}
+
+			function DeleteAssets() {
+				if(confirm("Are you sure you want to delete the selected items?")) {
+					$.get("/AssetTracker/delete?" + $("form").serialize(), function(data) {
+						GetAssets("", 1);
+						alert(data);
+					});
+				}
 					
 				return false;
 			}
