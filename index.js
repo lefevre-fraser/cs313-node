@@ -139,14 +139,11 @@ express()
       const result = await client.query(query, [req.body.user_name])
       client.release()
 
-      bcrypt.compare(req.body.password, result.rows[0].hashed_password).then(function(res) {
-        if (res) {
-          console.log("Welcome!")
-          req.session.user_name = result.rows[0].user_name;
-          req.session.full_name = result.rows[0].full_name;  
-        }
-      })
-      
+      if (await bcrypt.compare(req.body.password, result.rows[0].hashed_password)) {
+        console.log("Welcome!")
+        req.session.user_name = result.rows[0].user_name;
+        req.session.full_name = result.rows[0].full_name;  
+      }
 
       if (typeof req.session.returnPage !== 'undefined') {
         return res.redirect(req.session.returnPage)
