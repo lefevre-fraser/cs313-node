@@ -4,7 +4,7 @@ select insert_user
 ,	'LeFevre'
 ,	'702'
 ,	'960-3038'
-,	'$2y$08$NWRvYXNkbHZ1YTthc25mZOc5GiQvbMkRgQhkcU8e7FgP5fKS2nDTO'
+,	'$2b$08$QO8DDgLiFcsN5IoUacwFTOzrOHqHESYTpbZxzQnAMzUnEZqgRtome'
 ,	'Alan'
 );
 
@@ -35,7 +35,7 @@ select insert_user
 ,	'LeFevre'
 ,	'702'
 ,	'960-3038'
-,	'$2y$08$NWRvYXNkbHZ1YTthc25mZOc5GiQvbMkRgQhkcU8e7FgP5fKS2nDTO'
+,	'$2b$08$QO8DDgLiFcsN5IoUacwFTOzrOHqHESYTpbZxzQnAMzUnEZqgRtome'
 ,	'A'
 );
 
@@ -95,7 +95,7 @@ select insert_user
 ,	'LeFevre'
 ,	'702'
 ,	'960-3038'
-,	'$2y$08$NWRvYXNkbHZ1YTthc25mZOc5GiQvbMkRgQhkcU8e7FgP5fKS2nDTO'
+,	'$2b$08$QO8DDgLiFcsN5IoUacwFTOzrOHqHESYTpbZxzQnAMzUnEZqgRtome'
 );
 
 select insert_asset

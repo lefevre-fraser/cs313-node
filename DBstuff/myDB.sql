@@ -143,7 +143,7 @@ values
 ,	'LeFevre'
 ,	(select area_code_id from area_codes where area_code = '702')
 ,	'960-3038'
-,	'$2y$08$NWRvYXNkbHZ1YTthc25mZOc5GiQvbMkRgQhkcU8e7FgP5fKS2nDTO'
+,	'$2b$08$QO8DDgLiFcsN5IoUacwFTOzrOHqHESYTpbZxzQnAMzUnEZqgRtome'
 ,	(select admin_user_id from admin_users where admin_user_name = 'SYSADMIN')
 ,	current_date
 ,	(select admin_user_id from admin_users where admin_user_name = 'SYSADMIN')

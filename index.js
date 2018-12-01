@@ -126,11 +126,6 @@ express()
     }
     res.render('pages/AssetTracker/login')
   })
-  .get('/password', async (req, res) => {
-    bcrypt.hash('LeFevre7', saltRounds, function(err, hash) {
-      res.send(hash)
-    })
-  })
   .post('/AssetTracker/login', async (req, res) => {
     try {
       const client = await pool.connect()
