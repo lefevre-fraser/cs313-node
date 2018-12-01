@@ -139,6 +139,7 @@ express()
       const result = await client.query(query, [req.body.user_name])
       client.release()
 
+      console.log(result.rows[0].hashed_password)
       bcrypt.compare(req.body.password, result.rows[0].hashed_password, function(err, res) {
         if (err) {
           console.error(err)
