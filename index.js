@@ -213,7 +213,7 @@ express()
       const client = await pool.connect();
       var query = "select insert_user( ";
       query    += "$1::varchar, $2::varchar, $3::varchar, $4::varchar, ";
-      query    += "$5::varchar, $6::varchar, $7::varchar)";
+      query    += "$5::varchar, $6::text, $7::varchar)";
       var user_name = req.body.user_name;
       var password  = req.body.password;
       var fname     = req.body.fname;
@@ -224,6 +224,11 @@ express()
       var phone_number    = number.substring(6);
       var hashed_password;
       bcrypt.hash(password, 8, function(err, hash) {
+        if (err) {
+          console.error(err);
+          res.send("5");
+          return;
+        }
         hashed_password = hash;
       });
 
@@ -232,7 +237,7 @@ express()
       res.send(String(result.rows[0].insert_user));
     } catch (err) {
       console.log(err)
-      res.send("5");
+      res.send("6");
     }
   })
   .get('/math', function (req, res) { 
