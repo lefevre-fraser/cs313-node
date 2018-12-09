@@ -222,13 +222,7 @@ express()
       var number    = req.body.phone_number;
       var area_code = number.substring(1, 4);
       var phone_number    = number.substring(6);
-      var hashed_password;
-
-      console.log(password);
-      bcrypt.hash(password, 8).then(function(hash) {
-        console.log(hash);
-        hashed_password = hash;
-      });
+      var hashed_password = bcrypt.hashSync(password, 8);
 
       const result = await client.query(query, [user_name, fname, lname, area_code, phone_number, hashed_password, mname]);
       client.release();
@@ -237,11 +231,6 @@ express()
       console.log(err)
       res.send("6");
     }
-  })
-  .get('/hash', async (req, res) => {
-    bcrypt.hash(req.query.n, 8).then(function(hash) {
-      res.send(hash);
-    });
   })
   .get('/math', function (req, res) { 
   		var result;
