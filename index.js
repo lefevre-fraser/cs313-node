@@ -212,7 +212,7 @@ express()
     try {
       const client = await pool.connect();
       var query = "select insert_user( ";
-      query    += "$1::varchar, $2::varchar, $3::varchar, $4::varchar";
+      query    += "$1::varchar, $2::varchar, $3::varchar, $4::varchar, ";
       query    += "$5::varchar, $6::varchar, $7::varchar)";
       var user_name = req.body.user_name;
       var password  = req.body.password;
@@ -229,9 +229,10 @@ express()
 
       const result = await client.query(query, [user_name, fname, lname, area_code, phone_number, hashed_password, mname]);
       client.release();
-      res.send(result);
+      res.send(result.rows[0].insert_user);
     } catch (err) {
       console.log(err)
+      res.send("5");
     }
   })
   .get('/math', function (req, res) { 
