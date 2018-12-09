@@ -1,9 +1,19 @@
-<form action="/AssetTracker/login" method="post">
+<form action="/AssetTracker/newuser" method="post">
+	<label>First Name:</label><br>
+	<input type="text=" size="40" name="fname"><br>
+	<label>Middle Name:</label><br>
+	<input type="text=" size="40" name="mname"><br>
+	<label>Last Name:</label><br>
+	<input type="text=" size="40" name="lname"><br>
 	<label>User Name:</label><br>
 	<input type="text=" size="40" name="user_name"><br>
 	<label>Password:</label><br>
-	<input type="password" size="40" name="password"><br><br>
-	<button type="submit" class="btn btn-block">Login</button><br>
+	<input type="password" size="40" name="password"><br>
+	<label>Confirm Password</label><br>
+	<input type="password" size="40" name="c_password"><br>
+	<label>Phone Number:</label><br>
+	<input type="text=" size="40" name="phone_number"><br>
+	<button type="submit" class="btn btn-block">Create User</button><br>
 	<button type="button" class="btn btn-link" onclick="GetLoginPage();">Have an account
 	? Click Here</button>
 </form>
