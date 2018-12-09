@@ -235,7 +235,7 @@ express()
       res.send("6");
     }
   })
-  .get('hash', async (req, res) => {
+  .get('/hash', async (req, res) => {
     bcrypt.hash(req.query.n, 8).then(function(hash) {
       res.send(hash);
     });
