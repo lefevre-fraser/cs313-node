@@ -223,18 +223,10 @@ express()
       var area_code = number.substring(1, 4);
       var phone_number    = number.substring(6);
       var hashed_password;
-      await bcrypt.hash(password, 8, function(err, hash) {
-        if (err) {
-          console.error(err);
-          res.send("5");
-          return;
-        }
-
-        console.log(hash);
+      bcrypt.hash(password, 8).then(function(hash) {
         hashed_password = hash;
       });
 
-      console.log(hashed_password);
       const result = await client.query(query, [user_name, fname, lname, area_code, phone_number, hashed_password, mname]);
       client.release();
       res.send(String(result.rows[0].insert_user));
