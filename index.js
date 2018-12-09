@@ -224,6 +224,7 @@ express()
       var phone_number    = number.substring(6);
       var hashed_password;
       bcrypt.hash(password, 8).then(function(hash) {
+        console.log(hash);
         hashed_password = hash;
       });
 
