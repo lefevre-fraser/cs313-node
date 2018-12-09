@@ -229,9 +229,12 @@ express()
           res.send("5");
           return;
         }
+
+        console.log(hash);
         hashed_password = hash;
       });
 
+      console.log(hashed_password);
       const result = await client.query(query, [user_name, fname, lname, area_code, phone_number, hashed_password, mname]);
       client.release();
       res.send(String(result.rows[0].insert_user));
