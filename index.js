@@ -223,6 +223,8 @@ express()
       var area_code = number.substring(1, 4);
       var phone_number    = number.substring(6);
       var hashed_password;
+
+      console.log(password);
       bcrypt.hash(password, 8).then(function(hash) {
         console.log(hash);
         hashed_password = hash;
