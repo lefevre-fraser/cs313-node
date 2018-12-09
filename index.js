@@ -166,7 +166,13 @@ express()
         })
       }
     }
-    res.render('pages/AssetTracker/login')
+    res.render('pages/AssetTracker/loginservices')
+  })
+  .get('/AssetTracker/loginpage', async (req, res) => {
+    res.send(path.join(__dirname, "views/pages/AssetTracker/loginpage.html"))
+  })
+  .get('/AssetTracker/newuserpage', async (req, res) => {
+    res.send(path.join(__dirname, "views/pages/AssetTracker/newuserpage.html"))
   })
   .post('/AssetTracker/login', async (req, res) => {
     try {

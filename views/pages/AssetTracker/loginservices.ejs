@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login Services</title>
+	<% include includes/bootstrapHeader.ejs %>
+	<style type="text/css">
+		<% include main.css %>
+	</style>
+</head>
+<body>
+	<div class="container h-100 d-flex justify-content-center">
+		<div class="jumbotron my-auto" id="userform">
+				
+		</div>
+	</div>
+	<script>
+		function GetSignupPage() {
+			$.get('/AssetTracker/newuserpage').done(function(result) {
+				$("#userform").html(result);
+			});
+
+			return false;
+		}
+
+		function GetLoginPage() {
+			$.get('/AssetTracker/loginpage').done(function(result) {
+				$("#userform").html(result);
+			});
+
+			return false;
+		}
+
+		$(document).ready(function() {
+			GetLoginPage();
+		});
+	</script>
+
+	<% include includes/bootstrapFooter.ejs %>
+</body>
+</html>
