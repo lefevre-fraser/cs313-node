@@ -229,7 +229,7 @@ express()
 
       const result = await client.query(query, [user_name, fname, lname, area_code, phone_number, hashed_password, mname]);
       client.release();
-      res.send(result.rows[0].insert_user);
+      res.send(String(result.rows[0].insert_user));
     } catch (err) {
       console.log(err)
       res.send("5");
