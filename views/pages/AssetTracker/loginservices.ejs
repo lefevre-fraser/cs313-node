@@ -32,9 +32,10 @@
 			return false;
 		}
 
-		function CreatUser() {
-			if (/\(\d{3}\)\s\d{3}-\d{4}/.test($("#number").val())) {
+		function CreateUser() {
+			if (!/\(\d{3}\)\s\d{3}-\d{4}/.test($("#number").val())) {
 				alert("Phone Number must match this format:\n(xxx) xxx-xxxx");
+				return false;
 			}
 
 			$.post('/AssetTracker/newuser', $("form").serialize())

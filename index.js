@@ -199,10 +199,10 @@ express()
     }
     res.end()
   })
-  .get('/AssetTracker/newuser', async (req, res) => {
+  .post('/AssetTracker/newuser', async (req, res) => {
     if (req.body.password == "") {
       res.send("3");
-      
+
     }
 
     if (req.body.password != req.body.c_password) {
