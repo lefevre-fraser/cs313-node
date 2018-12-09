@@ -223,7 +223,7 @@ express()
       var area_code = number.substring(1, 4);
       var phone_number    = number.substring(6);
       var hashed_password;
-      bcrypt.hash(password, 8, function(err, hash) {
+      await bcrypt.hash(password, 8, function(err, hash) {
         if (err) {
           console.error(err);
           res.send("5");
