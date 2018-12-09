@@ -200,7 +200,9 @@ express()
     res.end()
   })
   .post('/AssetTracker/newuser', async (req, res) => {
-    if (req.body.password == "") {
+    if (req.body.password == "" || req.body.user_name == "" || req.body.fname == "" 
+      || req.body.lname == "" || req.body.phone_number == "" 
+      || (!/\(\d{3}\)\s\d{3}-\d{4}/.test($("#number").val()))) {
       res.send("3");
       end();
     }
