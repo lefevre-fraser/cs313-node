@@ -59,7 +59,7 @@ BEGIN
 	return 1;
 EXCEPTION
 	WHEN UNIQUE_VIOLATION THEN return 2;
-	-- WHEN OTHERS THEN return 0;
+	WHEN OTHERS THEN return 0;
 END;
 $$ language plpgsql;
 

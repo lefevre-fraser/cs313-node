@@ -202,11 +202,12 @@ express()
   .post('/AssetTracker/newuser', async (req, res) => {
     if (req.body.password == "") {
       res.send("3");
-
+      end();
     }
 
     if (req.body.password != req.body.c_password) {
       res.send("4");
+      end();
     }
 
     try {
@@ -227,9 +228,11 @@ express()
       const result = await client.query(query, [user_name, fname, lname, area_code, phone_number, hashed_password, mname]);
       client.release();
       res.send(String(result.rows[0].insert_user));
+      end();
     } catch (err) {
       console.log(err)
       res.send("6");
+      end();
     }
   })
   .get('/math', function (req, res) { 
