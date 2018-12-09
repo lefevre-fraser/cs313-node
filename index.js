@@ -199,6 +199,41 @@ express()
     }
     res.end()
   })
+  .get('/AssetTracker/newuser', async (req, res) => {
+    if (req.body.password == "") {
+      res.send("3");
+      
+    }
+
+    if (req.body.password != req.body.c_password) {
+      res.send("4");
+    }
+
+    try {
+      const client = await pool.connect();
+      var query = "select insert_user( ";
+      query    += "$1::varchar, $2::varchar, $3::varchar, $4::varchar";
+      query    += "$5::varchar, $6::varchar, $7::varchar)";
+      var user_name = req.body.user_name;
+      var password  = req.body.password;
+      var fname     = req.body.fname;
+      var mname     = req.body.mname;
+      var lname     = req.body.lname;
+      var number    = req.body.phone_number;
+      var area_code = number.substring(1, 4);
+      var phone_number    = number.substring(6);
+      var hashed_password;
+      bcrypt.hash(password, 8, function(err, hash) {
+        hashed_password = hash;
+      });
+
+      const result = await client.query(query, [user_name, fname, lname, area_code, phone_number, hashed_password, mname]);
+      client.release();
+      res.send(result);
+    } catch (err) {
+      console.log(err)
+    }
+  })
   .get('/math', function (req, res) { 
   		var result;
   		var op1 = req.query.op1;

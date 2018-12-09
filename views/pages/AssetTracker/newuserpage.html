@@ -1,19 +1,19 @@
 <form action="/AssetTracker/newuser" method="post">
 	<label>First Name:</label><br>
-	<input type="text=" size="40" name="fname"><br>
+	<input type="text=" size="40" name="fname" required><br>
 	<label>Middle Name:</label><br>
 	<input type="text=" size="40" name="mname"><br>
 	<label>Last Name:</label><br>
-	<input type="text=" size="40" name="lname"><br>
+	<input type="text=" size="40" name="lname" required><br>
 	<label>User Name:</label><br>
-	<input type="text=" size="40" name="user_name"><br>
+	<input type="text=" size="40" name="user_name" required><br>
 	<label>Password:</label><br>
-	<input type="password" size="40" name="password"><br>
+	<input type="password" size="40" name="password" required><br>
 	<label>Confirm Password</label><br>
-	<input type="password" size="40" name="c_password"><br>
+	<input type="password" size="40" name="c_password" required><br>
 	<label>Phone Number:</label><br>
-	<input type="text=" size="40" name="phone_number"><br>
-	<button type="submit" class="btn btn-block">Create User</button><br>
-	<button type="button" class="btn btn-link" onclick="GetLoginPage();">Have an account
+	<input id="number" type="text=" size="40" name="phone_number" placeholder="(xxx) xxx-xxxx" required><br>
+	<button type="button" class="btn btn-block" onclick="return CreateUser();">Create User</button><br>
+	<button type="button" class="btn btn-link" onclick="return GetLoginPage();">Have an account
 	? Click Here</button>
 </form>

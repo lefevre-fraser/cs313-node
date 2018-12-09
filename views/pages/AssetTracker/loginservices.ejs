@@ -15,7 +15,8 @@
 	</div>
 	<script>
 		function GetSignupPage() {
-			$.get('/AssetTracker/newuserpage').done(function(result) {
+			$.get('/AssetTracker/newuserpage')
+			.done(function(result) {
 				$("#userform").html(result);
 			});
 
@@ -23,8 +24,22 @@
 		}
 
 		function GetLoginPage() {
-			$.get('/AssetTracker/loginpage').done(function(result) {
+			$.get('/AssetTracker/loginpage')
+			.done(function(result) {
 				$("#userform").html(result);
+			});
+
+			return false;
+		}
+
+		function CreatUser() {
+			if (/\(\d{3}\)\s\d{3}-\d{4}/.test($("#number").val())) {
+				alert("Phone Number must match this format:\n(xxx) xxx-xxxx");
+			}
+
+			$.post('/AssetTracker/newuser', $("form").serialize())
+			.done(function (result) {
+				alert(result);
 			});
 
 			return false;
