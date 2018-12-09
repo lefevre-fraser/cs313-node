@@ -1,0 +1,4 @@
+const bcrypt require('bcrypt');
+bcrypt.hash("somthing", 8).then(function(hash) {
+	console.log(hash);
+});
