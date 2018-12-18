@@ -233,7 +233,7 @@ express()
       end();
     } catch (err) {
       console.log(err)
-      res.send("6");
+      res.send("0");
       end();
     }
   })

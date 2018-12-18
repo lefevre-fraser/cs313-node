@@ -23,6 +23,8 @@
 			</form>
 		</div>
 
+		<% include includes/errorCodes.ejs %>
+
 		<script>
 			function InsertAsset() {
 				$.get('/AssetTracker/Insert?' + $("form").serialize(), function(data) {
