@@ -43,7 +43,7 @@
 
 			$.post('/AssetTracker/newuser', $("form").serialize())
 			.done(function (result) {
-				alert(InsertUserErrors[result]);
+				alert(NewUserErrors[result]);
 			});
 
 			return false;

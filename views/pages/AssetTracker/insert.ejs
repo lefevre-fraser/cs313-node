@@ -28,7 +28,7 @@
 		<script>
 			function InsertAsset() {
 				$.get('/AssetTracker/Insert?' + $("form").serialize(), function(data) {
-					alert(data);
+					alert(AssetErrors[data]);
 				});
 			}
 		</script>
