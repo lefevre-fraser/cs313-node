@@ -29,6 +29,7 @@
 			function InsertAsset() {
 				$.get('/AssetTracker/Insert?' + $("form").serialize(), function(data) {
 					alert(AssetErrors[data]);
+					$("form")[0].reset();
 				});
 
 				return false;
