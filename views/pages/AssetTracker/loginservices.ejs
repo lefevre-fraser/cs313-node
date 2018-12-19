@@ -44,7 +44,9 @@
 			$.post('/AssetTracker/newuser', $("form").serialize())
 			.done(function (result) {
 				alert(NewUserErrors[result]);
-				window.location.href = '/AssetTracker/LoginServices';
+				if (result == 1) {
+					window.location.href = '/AssetTracker/LoginServices';
+				}
 			});
 
 			return false;
