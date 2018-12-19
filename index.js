@@ -200,6 +200,7 @@ express()
     res.end()
   })
   .post('/AssetTracker/newuser', async (req, res) => {
+    console.log("Checking Fields Contain Values")
     if (req.body.password == "" || req.body.user_name == "" || req.body.fname == "" 
       || req.body.lname == "" || req.body.phone_number == "" 
       || (!/\(\d{3}\)\s\d{3}-\d{4}/.test($("#number").val()))) {
@@ -207,11 +208,13 @@ express()
       end();
     }
 
+    console.log("Checking Paswords match")
     if (req.body.password != req.body.c_password) {
       res.send("4");
       end();
     }
 
+    console.log("Attempting to Insert User")
     try {
       const client = await pool.connect();
       var query = "select insert_user( ";
