@@ -113,6 +113,11 @@ express()
     }
   })
   .get('/AssetTracker/Insert', async (req, res) => {
+    if (req.query.asset_name == "") {
+      res.send("3");
+      return;
+    }
+
     try {
       const client = await pool.connect()
       var query = "select insert_asset( $1::varchar , $2::integer , $3::bigint , $4::text )"
@@ -123,9 +128,10 @@ express()
       const params = [user_name, quantity, asset_value, asset_name]
       const result = await client.query(query, params)
       client.release()
-      res.send("" + result.rows[0].insert_asset)
+      res.send("" + result.rows[0].insert_asset);
     } catch (err) {
-      console.error(err)
+      res.send("0");
+      console.error(err);
     }
   })
   .get('/AssetTracker/UserAccount', async (req, res) => {
