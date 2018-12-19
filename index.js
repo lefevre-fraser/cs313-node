@@ -76,6 +76,7 @@ express()
       client.release()
       res.send("1")
     } catch (err) {
+      res.send("0")
       console.error(err)
     }
   })
@@ -98,6 +99,7 @@ express()
       client.release()
       res.send("1")
     } catch(e) {
+      res.send("0")
       console.log(e);
     }
   })
@@ -113,7 +115,7 @@ express()
     }
   })
   .get('/AssetTracker/Insert', async (req, res) => {
-    if (req.query.asset_name == "" || req.query.asset_name == "" req.query.asset_name == "") {
+    if (req.query.asset_name == "" || req.query.asset_name == "" || req.query.asset_name == "") {
       res.send("3");
       return;
     }
