@@ -230,7 +230,8 @@ express()
       var phone_number    = number.substring(6);
       var hashed_password = bcrypt.hashSync(password, 8);
 
-      const result = await client.query(query, [user_name, fname, lname, area_code, phone_number, hashed_password, mname]);
+      var params = [user_name, fname, lname, area_code, phone_number, hashed_password, mname];
+      const result = await client.query(query, params);
       client.release();
       res.send(String(result.rows[0].insert_user));
       return;

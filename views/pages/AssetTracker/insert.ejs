@@ -19,7 +19,7 @@
 				<input type="number" name="quantity" value="1" required><br>
 				<label>Unit Value:</label><br>
 				<input type="number" name="asset_value" placeholder="20" required><br><br>
-				<button type="submit" onclick="InsertAsset();" class="btn btn-block">Add Item To Assets</button>
+				<button type="submit" onclick="return InsertAsset();" class="btn btn-block">Add Item To Assets</button>
 			</form>
 		</div>
 
@@ -30,6 +30,8 @@
 				$.get('/AssetTracker/Insert?' + $("form").serialize(), function(data) {
 					alert(AssetErrors[data]);
 				});
+
+				return false;
 			}
 		</script>
 
