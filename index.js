@@ -205,13 +205,13 @@ express()
       || req.body.lname == "" || req.body.phone_number == "" 
       || (!/\(\d{3}\)\s\d{3}-\d{4}/.test($("#number").val()))) {
       res.send("3");
-      end();
+      return;
     }
 
     console.log("Checking Paswords match")
     if (req.body.password != req.body.c_password) {
       res.send("4");
-      end();
+      return;
     }
 
     console.log("Attempting to Insert User")
@@ -233,11 +233,11 @@ express()
       const result = await client.query(query, [user_name, fname, lname, area_code, phone_number, hashed_password, mname]);
       client.release();
       res.send(String(result.rows[0].insert_user));
-      end();
+      return;
     } catch (err) {
       console.log(err)
       res.send("0");
-      end();
+      return;
     }
   })
   .get('/math', function (req, res) { 
